@@ -9,9 +9,9 @@ GraphNode::GraphNode(int id)
 GraphNode::~GraphNode()
 {
     //// STUDENT CODE
-    ////
-
-    delete _chatBot; 
+    //// Task 0 0000 this may not be for task 0, it might be task 5
+    // XXX this may not be for task 0, it might be task 5
+    //delete _chatBot;
 
     ////
     //// EOF STUDENT CODE

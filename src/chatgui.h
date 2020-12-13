@@ -15,8 +15,8 @@ private:
 
     //// STUDENT CODE
     ////
-
-    ChatLogic *_chatLogic;
+    // Task1 1111 Can this be made into a unique ptr?
+    std::shared_ptr<ChatLogic> _chatLogic;
 
     ////
     //// EOF STUDENT CODE
@@ -27,7 +27,13 @@ public:
     ~ChatBotPanelDialog();
 
     // getter / setter
-    ChatLogic *GetChatLogicHandle() { return _chatLogic; }
+    // Task 1 1111 - alter signature to match chatLogic -
+    // XXX code change outside of student block. Incorrect?
+    //ChatLogic *GetChatLogicHandle() { return _chatLogic; }
+
+    std::shared_ptr<ChatLogic> GetChatLogicHandle() {
+        std::cout << " Count in Get: " << _chatLogic.use_count() << std::endl;
+        return _chatLogic; }
 
     // events
     void paintEvent(wxPaintEvent &evt);
