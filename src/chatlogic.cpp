@@ -36,7 +36,8 @@ ChatLogic::~ChatLogic()
     delete _chatBot;
 
     // delete all nodes
-    for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
+    // Task 3 3333 Removed all deletes - no longer needed
+    /*for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
     {
         delete *it;
     }
@@ -45,7 +46,7 @@ ChatLogic::~ChatLogic()
     for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
     {
         delete *it;
-    }
+    }*/
 
     ////
     //// EOF STUDENT CODE
@@ -127,7 +128,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         ////
 
                         // check if node with this ID exists already
-                        auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](GraphNode *node) { return node->GetID() == id; });
+                        auto newNode = std::find_if(_nodes.begin(), _nodes.end(), [&id](std::unique_ptr<GraphNode> &node) { return node->GetID() == id; });
 
                         // create new element if ID does not yet exist
                         if (newNode == _nodes.end())
@@ -156,13 +157,17 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         if (parentToken != tokens.end() && childToken != tokens.end())
                         {
                             // get iterator on incoming and outgoing node via ID search
-                            auto parentNode = std::find_if(_nodes.begin(), _nodes.end(), [&parentToken](GraphNode *node) { return node->GetID() == std::stoi(parentToken->second); });
-                            auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](GraphNode *node) { return node->GetID() == std::stoi(childToken->second); });
+                            // Task 3 3333 change GraphNode* to std::unique_ptr<GraphNode> &node for both lines
+                            auto parentNode = std::find_if(_nodes.begin(), _nodes.end(), [&parentToken](std::unique_ptr<GraphNode> &node) { return node->GetID() == std::stoi(parentToken->second); });
+                            auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](std::unique_ptr<GraphNode> &node) { return node->GetID() == std::stoi(childToken->second); });
 
                             // create new edge
+                            // Task 3 3333 - From *chhidNode to childNode->get
+                            // XXXX ->get()? Should I change edges also? Outside of student code.
                             GraphEdge *edge = new GraphEdge(id);
-                            edge->SetChildNode(*childNode);
-                            edge->SetParentNode(*parentNode);
+                            // Task 3 3333 - Do I want to std::move here?
+                            edge->SetChildNode(std::move(childNode->get()));
+                            edge->SetParentNode(parentNode->get());
                             _edges.push_back(edge);
 
                             // find all keywords for current node
@@ -206,7 +211,9 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
             if (rootNode == nullptr)
             {
-                rootNode = *it; // assign current node to root
+                // Task 3 333 - change to it->get()
+                rootNode = it->get();
+                //rootNode = *it; // assign current node to root
             }
             else
             {
