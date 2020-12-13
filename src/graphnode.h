@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "chatbot.h"
 
 
@@ -16,10 +17,13 @@ private:
     ////
 
     // data handles (owned)
-    std::vector<GraphEdge *> _childEdges;  // edges to subsequent nodes
+    // Task 4 4444 - change data structure to vector unique_ptrs
+    std::vector<std::unique_ptr<GraphEdge>>_childEdges;  // edges to subsequent nodes
 
     // data handles (not owned)
-    std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
+    // Task 4 4444 - parent edges were not changed to a vector of unique or shared pointers
+    // This was done to meet the requirement that the handles not be owned
+    std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes
     ChatBot *_chatBot;
 
     ////
@@ -44,7 +48,9 @@ public:
     // proprietary functions
     void AddToken(std::string token); // add answers to list
     void AddEdgeToParentNode(GraphEdge *edge);
-    void AddEdgeToChildNode(GraphEdge *edge);
+    // Task 4 Altering signature
+    void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
+    //void AddEdgeToChildNode(GraphEdge *edge);
 
     //// STUDENT CODE
     ////

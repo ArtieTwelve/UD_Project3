@@ -26,10 +26,11 @@ void GraphNode::AddEdgeToParentNode(GraphEdge *edge)
 {
     _parentEdges.push_back(edge);
 }
-
-void GraphNode::AddEdgeToChildNode(GraphEdge *edge)
+// Task 4 4444 Altering signatures to compensate
+// XXX This is outside student code, but have to do it.
+void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 {
-    _childEdges.push_back(edge);
+    _childEdges.push_back(std::move(edge));
 }
 
 //// STUDENT CODE
@@ -53,7 +54,9 @@ GraphEdge *GraphNode::GetChildEdgeAtIndex(int index)
     //// STUDENT CODE
     ////
 
-    return _childEdges[index];
+    //  Task 4 4444 Alter return
+    return _childEdges.at(index).get();
+    //return _childEdges[index];
 
     ////
     //// EOF STUDENT CODE
