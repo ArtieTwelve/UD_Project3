@@ -29,7 +29,12 @@ public:
 
     //// STUDENT CODE
     ////
+    // Task 2 2222 - Add in Rule of 5 code
+    ChatBot(const ChatBot& other);
+    ChatBot& operator=(const ChatBot& other);
 
+    ChatBot(ChatBot&& other);
+    ChatBot& operator=(ChatBot&& other);
     ////
     //// EOF STUDENT CODE
 

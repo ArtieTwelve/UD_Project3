@@ -43,8 +43,46 @@ ChatBot::~ChatBot()
 }
 
 //// STUDENT CODE
-////
+//// Task 2 2222 implement the Rule of 5 methods
+ChatBot::ChatBot(const ChatBot& other) :
+        _image(other._image),
+        _chatLogic(other._chatLogic),
+        _rootNode(other._rootNode) {
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+}
 
+ChatBot& ChatBot::operator=(const ChatBot& other) {
+    std::cout << "ChatBot Assignment Operator" << std::endl;
+    _image = other._image;
+    _chatLogic = other._chatLogic;
+    _rootNode = other._rootNode;
+    return *this;
+}
+ChatBot::ChatBot(ChatBot&& other) :
+        _image(other._image),
+        _chatLogic(other._chatLogic),
+        _rootNode(other._rootNode){
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    other._image = NULL;
+    other._chatLogic = nullptr;
+    other._rootNode = nullptr;
+}
+ChatBot& ChatBot::operator=(ChatBot&& other) {
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
+    // first, null out what might exist
+    _image = NULL;
+    _rootNode = nullptr;
+    _chatLogic = nullptr;
+    // second, do the move
+    _image = std::move(other._image);
+    _rootNode = std::move(other._rootNode);
+    _chatLogic = std::move(other._chatLogic);
+    // third, null out the old object
+    other._image = NULL;
+    other._rootNode = nullptr;
+    other._chatLogic = nullptr;
+    return *this;
+}
 ////
 //// EOF STUDENT CODE
 
