@@ -27,12 +27,9 @@ public:
     ~ChatBotPanelDialog();
 
     // getter / setter
-    // Task 1 1111 - alter signature to match chatLogic -
-    // XXX code change outside of student block. Incorrect?
-    //ChatLogic *GetChatLogicHandle() { return _chatLogic; }
+    // Task 1 1111 - alter signature to match chatLogic
 
     std::shared_ptr<ChatLogic> GetChatLogicHandle() {
-        std::cout << " Count in Get: " << _chatLogic.use_count() << std::endl;
         return _chatLogic; }
 
     // events

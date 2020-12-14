@@ -21,20 +21,13 @@ private:
     // Task 3 3333 adapt vector nodes
     std::vector<std::unique_ptr<GraphNode>> _nodes;
     // Task 3 3333 not doing edges
-    //std::vector<std::unique_ptr<GraphEdge>> _edges;
     std::vector<GraphEdge *> _edges;
 
-
-//    std::vector<GraphNode *> _nodes;
-//    std::vector<GraphEdge *> _edges;
     ////
     //// EOF STUDENT CODE
-
     // data handles (not owned)
     GraphNode *_currentNode;
-
     ChatBot *_chatBot;
-
     ChatBotPanelDialog *_panelDialog;
 
     // proprietary type definitions

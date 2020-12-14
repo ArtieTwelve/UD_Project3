@@ -24,7 +24,9 @@ private:
     // Task 4 4444 - parent edges were not changed to a vector of unique or shared pointers
     // This was done to meet the requirement that the handles not be owned
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes
-    ChatBot *_chatBot;
+
+    // Task 5 5555 - refactor Chatbot to an Object
+    ChatBot _chatBot;
 
     ////
     //// EOF STUDENT CODE
@@ -54,8 +56,11 @@ public:
 
     //// STUDENT CODE
     ////
+    // Task 5 change signature
+    //void MoveChatBotHere(std::unique_ptr<ChatBot> chatBot);
+    void MoveChatBotHere(ChatBot chatBot);
 
-    void MoveChatbotHere(ChatBot *chatbot);
+    //void MoveChatbotHere(dtdChatBot *chatbot);
 
     ////
     //// EOF STUDENT CODE

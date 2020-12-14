@@ -119,8 +119,7 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
 
     // create chat logic instance
     // Task 1 1111 - convert to smart pointer. Can it be unique?
-    //_chatLogic = new ChatLogic();
-    _chatLogic = std::make_shared<ChatLogic>();
+    _chatLogic = std::make_unique<ChatLogic>();
 
     // pass pointer to chatbot dialog so answers can be displayed in GUI
     _chatLogic->SetPanelDialogHandle(this);

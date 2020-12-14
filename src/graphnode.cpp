@@ -1,3 +1,4 @@
+#include <iostream>
 #include "graphedge.h"
 #include "graphnode.h"
 
@@ -10,7 +11,7 @@ GraphNode::~GraphNode()
 {
     //// STUDENT CODE
     //// Task 0 0000 this may not be for task 0, it might be task 5
-    // XXX this may not be for task 0, it might be task 5
+
     //delete _chatBot;
 
     ////
@@ -26,8 +27,7 @@ void GraphNode::AddEdgeToParentNode(GraphEdge *edge)
 {
     _parentEdges.push_back(edge);
 }
-// Task 4 4444 Altering signatures to compensate
-// XXX This is outside student code, but have to do it.
+// Task 4 4444 Altering signatures to compensate for new data structures
 void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 {
     _childEdges.push_back(std::move(edge));
@@ -35,16 +35,20 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 
 //// STUDENT CODE
 ////
-void GraphNode::MoveChatbotHere(ChatBot *chatbot)
+// Task 5 Change method signature
+//void GraphNode::MoveChatBotHere(std::unique_ptr<ChatBot> chatbot)
+void GraphNode::MoveChatBotHere(ChatBot chatbot)
 {
-    _chatBot = chatbot;
-    _chatBot->SetCurrentNode(this);
+    //_chatBot = chatbot;
+    _chatBot = std::move(chatbot);
+    _chatBot.SetCurrentNode(this);
+
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
-    newNode->MoveChatbotHere(_chatBot);
-    _chatBot = nullptr; // invalidate pointer at source
+    newNode->MoveChatBotHere(std::move(_chatBot));
+
 }
 ////
 //// EOF STUDENT CODE
@@ -56,7 +60,6 @@ GraphEdge *GraphNode::GetChildEdgeAtIndex(int index)
 
     //  Task 4 4444 Alter return
     return _childEdges.at(index).get();
-    //return _childEdges[index];
 
     ////
     //// EOF STUDENT CODE
